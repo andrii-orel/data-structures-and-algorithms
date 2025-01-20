@@ -4,6 +4,7 @@ public interface IPrefixSumService
 {
     int WaysToSplitArray(int[] nums);
     int WaysToSplitArray2(int[] nums);
+    int[] RunningSum(int[] nums);
 }
 
 public class PrefixSumService : IPrefixSumService
@@ -86,4 +87,43 @@ public class PrefixSumService : IPrefixSumService
 
         return result;
     }
+
+    // https://leetcode.com/problems/running-sum-of-1d-array/submissions/1319759787/
+    // Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+    // Return the running sum of nums.
+    // Example 1:
+    // Input: nums = [1,2,3,4]
+    // Output: [1,3,6,10]
+    // Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
+    // Example 2:
+    // Input: nums = [1,1,1,1,1]
+    // Output: [1,2,3,4,5]
+    // Explanation: Running sum is obtained as follows: [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1].
+    // Example 3:
+    // Input: nums = [3,1,2,10,1]
+    // Output: [3,4,6,16,17]
+    // Constraints:
+    // 1 <= nums.length <= 1000
+    // -10^6 <= nums[i] <= 10^6
+    public int[] RunningSum(int[] nums)
+    {
+        for (var i = 1; i < nums.Length; i++)
+        {
+            nums[i] += nums[i - 1];
+        }
+
+        return nums;
+    }
+    // I have SQL query which I need to fix. Declare @processCode
+    // DECLARE @processCode VARCHAR (50) = 'OA'
+    // Declare @contentType VARCHAR (50) = 'Incremental'
+    // SELECT
+    // Process_Code, Subscription ID, Latest Flag, File Pattern, Content Type, File Name
+    // FROM
+    // ref.PROCESS SUBSCRIPTION ps
+    // WHERE
+    // ps.Deleted Flag = 0
+    // AND ( IF(@contentType IS NULL) THEN @processCode IS NULL OR @processCode ps. Process Code
+    // ELSE @processCode = ps.Process Code AND @contentType = ps.Content Type)
+
 }

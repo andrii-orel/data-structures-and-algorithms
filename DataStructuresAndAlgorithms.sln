@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraysAndStrings", "ArraysA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{77AAA2B5-67BB-4C60-B8EF-B0B7EC9576EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedLists", "LinkedLists\LinkedLists.csproj", "{DDDF9642-11AE-4E00-ABE5-9994A6F109B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashTables", "HashTables\HashTables.csproj", "{AB06EF07-BFFE-4348-AD74-C0F1B8678D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{77AAA2B5-67BB-4C60-B8EF-B0B7EC9576EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77AAA2B5-67BB-4C60-B8EF-B0B7EC9576EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77AAA2B5-67BB-4C60-B8EF-B0B7EC9576EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDDF9642-11AE-4E00-ABE5-9994A6F109B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDF9642-11AE-4E00-ABE5-9994A6F109B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDF9642-11AE-4E00-ABE5-9994A6F109B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDF9642-11AE-4E00-ABE5-9994A6F109B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB06EF07-BFFE-4348-AD74-C0F1B8678D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB06EF07-BFFE-4348-AD74-C0F1B8678D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB06EF07-BFFE-4348-AD74-C0F1B8678D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB06EF07-BFFE-4348-AD74-C0F1B8678D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ArraysAndStrings\ArraysAndStrings.csproj" />
+      <ProjectReference Include="..\HashTables\HashTables.csproj" />
     </ItemGroup>
 
 </Project>
