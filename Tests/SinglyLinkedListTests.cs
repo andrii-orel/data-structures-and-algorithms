@@ -19,6 +19,9 @@ public class SinglyLinkedListTests
 
         // Assert
         Assert.Equal(expected: expected, actual: _singlyLinkedList.Count);
+        Assert.Equal(expected: "Test1", actual: _singlyLinkedList[0]);
+        Assert.Equal(expected: "Test3", actual: _singlyLinkedList[1]);
+        Assert.Equal(expected: "Test2", actual: _singlyLinkedList[2]);
     }
 
     [Fact]
