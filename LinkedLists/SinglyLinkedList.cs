@@ -38,6 +38,7 @@ public interface ISinglyLinkedList
     int IndexOf(object o);
     bool Contains(object o);
     object GetByIndex(int index);
+    SinglyLinkedList Reverse();
 }
 
 public class SinglyLinkedList : ISinglyLinkedList
@@ -161,5 +162,17 @@ public class SinglyLinkedList : ISinglyLinkedList
         }
         
         return current.Data;
+    }
+
+    public SinglyLinkedList Reverse()
+    {
+        SinglyLinkedList result = new SinglyLinkedList();
+        SinglyLinkedListNode curr = _head;
+        while (curr != null) {
+            result.AddByIndex(0, curr.Data);
+            curr = curr.Next;
+        }
+
+        return result;
     }
 }

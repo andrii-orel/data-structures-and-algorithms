@@ -149,4 +149,23 @@ public class SinglyLinkedListTests
         // Assert
         Assert.Equal(expected: "Test3", actual: result);
     }
+    
+    [Fact]
+    public void LinkedList_Reverse_Success()
+    {
+        // Arrange
+        _singlyLinkedList.AddToNail("Test1");
+        _singlyLinkedList.AddToNail("Test2");
+        _singlyLinkedList.AddToNail("Test3");
+        _singlyLinkedList.AddToNail("Test4");
+
+        // Act
+        var result = _singlyLinkedList.Reverse();
+
+        // Assert
+        Assert.Equal(expected: "Test4", actual: result[0]);
+        Assert.Equal(expected: "Test3", actual: result[1]);
+        Assert.Equal(expected: "Test2", actual: result[2]);
+        Assert.Equal(expected: "Test1", actual: result[3]);
+    }
 }
