@@ -134,7 +134,7 @@ public class HashTableService : IHashTableService
 
         return dictionary;
     }
-    
+
     // 13. Roman to Integer
     // Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
     //
@@ -154,42 +154,34 @@ public class HashTableService : IHashTableService
     // X can be placed before L (50) and C (100) to make 40 and 90. 
     // C can be placed before D (500) and M (1000) to make 400 and 900.
     // Given a roman numeral, convert it to an integer.
-    //
-    //
-    //
     //     Example 1:
-    //
     // Input: s = "III"
     // Output: 3
     // Explanation: III = 3.
     // Example 2:
-    //
     // Input: s = "LVIII"
     // Output: 58
     // Explanation: L = 50, V= 5, III = 3.
     // Example 3:
-    //
     // Input: s = "MCMXCIV"
     // Output: 1994
     // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
-    //
-    //
     //         Constraints:
-    //
     //     1 <= s.length <= 15
     // s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
     readonly Dictionary<char, int> _dictionary = new Dictionary<char, int>
     {
-        {'I', 1},
-        {'V', 5},
-        {'X', 10},
-        {'L', 50},
-        {'C', 100},
-        {'D', 500},
-        {'M', 1000}
+        { 'I', 1 },
+        { 'V', 5 },
+        { 'X', 10 },
+        { 'L', 50 },
+        { 'C', 100 },
+        { 'D', 500 },
+        { 'M', 1000 }
     };
-    public int RomanToInt(string s) {
-        
+
+    public int RomanToInt(string s)
+    {
         int result = 0;
         int prev = 0;
 
@@ -197,22 +189,22 @@ public class HashTableService : IHashTableService
         {
             var curr = _dictionary[s[i]];
             result += curr < prev ? -curr : curr;
-            prev = curr; 
+            prev = curr;
         }
 
         return result;
     }
-    
-    public string IntToRoman(int num) {
+
+    public string IntToRoman(int num)
+    {
         if (num == 0)
         {
             return string.Empty;
         }
-        
+
         var result = new StringBuilder();
         int prev = 0;
 
-        
 
         return result.ToString();
     }
