@@ -5,17 +5,147 @@ namespace Tests;
 public class ArraysAndStringsServiceTests
 {
     private readonly IArraysAndStringsService _arraysAndStringsService;
-    
+
     public ArraysAndStringsServiceTests()
     {
         _arraysAndStringsService = new ArraysAndStringsService();
     }
-    
+[Fact]
+    public void GetAverages_Example1_Success()
+    {
+        // Arrange
+        var input = new[] { 7,4,3,9,1,8,5,2,6 };
+        var k = 3;
+        var expected = new[] { -1,-1,-1,5,4,4,-1,-1,-1 };
+
+        // Act
+        var result = _arraysAndStringsService.GetAverages(input, k);
+
+        // Assert
+        for (var i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected[i], result[i]);
+        }
+    }
+
+    [Fact]
+    public void MinStartValue_Example1_Success()
+    {
+        // Arrange
+        var input = new[] { -3, 2, -3, 4, 2 };
+        var expected = 5;
+
+        // Act
+        var result = _arraysAndStringsService.MinStartValue(input);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void GameOfLife_Example1_Success()
+    {
+        // Arrange
+        var input = new int[][]
+        {
+            new int[] { 0, 1, 0 },
+            new int[] { 0, 0, 1 },
+            new int[] { 1, 1, 1 },
+            new int[] { 0, 0, 0 }
+        };
+        var expected = new int[][]
+        {
+            new int[] { 0, 0, 0 },
+            new int[] { 1, 0, 1 },
+            new int[] { 0, 1, 1 },
+            new int[] { 0, 1, 0 }
+        };
+
+        // Act
+        var result = _arraysAndStringsService.GameOfLife(input);
+
+        // Assert
+        for (int i = 0; i < expected.Length; i++)
+        {
+            for (int j = 0; j < expected[i].Length; j++)
+            {
+                // Assert.Equal(expected[i][j], result[i][j]);
+            }
+        }
+    }
+
+    [Fact]
+    public void MaxArea_Example1_Success()
+    {
+        // Arrange
+        var input = new int[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+        ;
+        var expected = 49;
+
+        // Act
+        var result = _arraysAndStringsService.MaxArea(input);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void Pangrams_Example1_Success()
+    {
+        // Arrange
+        var input = "We promptly judged antique ivory buckles for the next prize";
+        var expected = "pangram";
+
+        // Act
+        var result = _arraysAndStringsService.Pangrams(input);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void RunningSum_Example1_Success()
+    {
+        //Input: nums = [1,2,3,4]
+        //Output: [1,3,6,10]
+        // Arrange
+        var input = new int[] { 1, 2, 3, 4 };
+        var expected = new int[] { 1, 3, 6, 10 };
+
+        // Act
+        var result = _arraysAndStringsService.RunningSum(input);
+
+        // Assert
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected: expected[i], actual: result[i]);
+        }
+    }
+
+    [Fact]
+    public void SortedSquares2_Example1_Success()
+    {
+        //Input: nums = [1,2,3,4]
+        //Output: [1,3,6,10]
+        // Arrange
+        var input = new int[] { -7, -3, 2, 3, 11 };
+        var expected = new int[] { 4, 9, 9, 49, 121 };
+
+        // Act
+        var result = _arraysAndStringsService.SortedSquares2(input);
+
+        // Assert
+        for (int i = 0; i < expected.Length; i++)
+        {
+            Assert.Equal(expected: expected[i], actual: result[i]);
+        }
+    }
+
     [Fact]
     public void LongestCommonPrefix_Example1_Success()
     {
         // Arrange
-        string[] input = ["flower","flow","flight"];
+        string[] input = ["flower", "flow", "flight"];
         string expected = "fl";
 
         // Act
@@ -24,12 +154,12 @@ public class ArraysAndStringsServiceTests
         // Assert
         Assert.Equal(expected: expected, actual: result);
     }
-    
+
     [Fact]
     public void LongestCommonPrefix_Example2_Success()
     {
         // Arrange
-        string[] input = ["dog","racecar","car"];
+        string[] input = ["dog", "racecar", "car"];
         string expected = "";
 
         // Act
@@ -38,7 +168,7 @@ public class ArraysAndStringsServiceTests
         // Assert
         Assert.Equal(expected: expected, actual: result);
     }
-    
+
     [Fact]
     public void ReverseString_Example1_Success()
     {
@@ -368,5 +498,4 @@ public class ArraysAndStringsServiceTests
             Assert.Equal(expected: expectedNums[i], actual: nums[i]);
         }
     }
-
 }

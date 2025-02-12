@@ -1,5 +1,6 @@
 ﻿namespace ArraysAndStrings;
 
+// https://www.youtube.com/watch?v=DjYZk8nrXVY&t=70s
 public interface IArraysAndStringsService
 {
     void ReverseString(char[] s);
@@ -14,6 +15,16 @@ public interface IArraysAndStringsService
     int LengthOfLastWord(string s);
     string ReverseWords(string s);
     string LongestCommonPrefix(string[] strs);
+    int[] RunningSum(int[] nums);
+    int[] SortedSquares2(int[] nums);
+    void ReverseString2(char[] s);
+    string Pangrams(string s);
+    int MaxArea(int[] height);
+    int[][] GameOfLife(int[][] board);
+    int MinStartValue(int[] nums);
+    int[] GetAverages(int[] nums, int k);
+    int MaxVowels(string s, int k);
+    int MaxProfit(int[] prices);
 }
 
 public class ArraysAndStringsService : IArraysAndStringsService
@@ -46,6 +57,7 @@ public class ArraysAndStringsService : IArraysAndStringsService
             case 1:
                 return strs[0];
         }
+
         var minLength = strs.Min(str => str.Length);
         var isPrefix = true;
         for (var i = 0; i < minLength; i++)
@@ -58,7 +70,7 @@ public class ArraysAndStringsService : IArraysAndStringsService
                 isPrefix = false;
                 break;
             }
-            
+
             if (isPrefix)
                 result += strs[0][i];
             else
@@ -548,5 +560,392 @@ public class ArraysAndStringsService : IArraysAndStringsService
 
         var words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         return string.Join(" ", words.Reverse());
+    }
+
+    public int[] RunningSum(int[] nums)
+    {
+        for (int i = 1; i < nums.Length; i++)
+        {
+            nums[i] += nums[i - 1];
+        }
+
+        return nums;
+    }
+
+    public void ReverseString2(char[] s)
+    {
+        int left = 0;
+        int right = s.Length - 1;
+        while (left < right)
+        {
+            var tmp = s[left];
+            s[left] = s[right];
+            s[right] = tmp;
+            left++;
+            right--;
+        }
+    }
+
+    public int[] SortedSquares2(int[] nums)
+    {
+        for (int i = 0; i < nums.Length; i++)
+        {
+            nums[i] *= nums[i];
+        }
+
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            for (int j = i + 1; j < nums.Length; j++)
+            {
+                if (nums[i] > nums[j])
+                {
+                    (nums[i], nums[j]) = (nums[j], nums[i]);
+                }
+            }
+        }
+
+        return nums;
+    }
+
+    public string GetResult(bool result)
+    {
+        return result ? "pangram" : "not pangram";
+    }
+
+    public string Pangrams(string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return GetResult(false);
+        s = s.ToLowerInvariant().Replace(" ", "");
+        var store = new Dictionary<char, int>();
+        foreach (var c in s)
+        {
+            if (store.ContainsKey(c))
+            {
+                store[c]++;
+            }
+            else
+            {
+                store.Add(c, 1);
+            }
+        }
+
+        return GetResult(store.Count == 26);
+    }
+
+    // You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+    // Find two lines that together with the x-axis form a container, such that the container contains the most water.
+    //     Return the maximum amount of water a container can store.
+    //     Notice that you may not slant the container.
+    //     Example 1:
+    // Input: height = [1,8,6,2,5,4,8,3,7]
+    // Output: 49
+    // Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+    // Example 2:
+    // Input: height = [1,1]
+    // Output: 1
+    // Constraints:
+    // n == height.length
+    // 2 <= n <= 105
+    // 0 <= height[i] <= 104
+    public int MaxArea(int[] height)
+    {
+        var result = 0;
+        var left = 0;
+        var right = height.Length - 1;
+
+        while (left < right)
+        {
+            var tmp = Math.Min(height[left], height[right]) * (right - left);
+            result = Math.Max(result, tmp);
+            if (height[left] > height[right])
+            {
+                right--;
+            }
+            else
+            {
+                left++;
+            }
+        }
+
+        return result;
+    }
+
+    // 289. Game of Life
+    // According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+    //
+    // The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+    //
+    // Any live cell with fewer than two live neighbors dies as if caused by under-population.
+    //     Any live cell with two or three live neighbors lives on to the next generation.
+    //     Any live cell with more than three live neighbors dies, as if by over-population.
+    //     Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+    //     The next state of the board is determined by applying the above rules simultaneously to every cell in the current state of the m x n grid board. In this process, births and deaths occur simultaneously.
+    //
+    //     Given the current state of the board, update the board to reflect its next state.
+    //
+    //     Note that you do not need to return anything.
+    public int[][] GameOfLife(int[][] board)
+    {
+        // ToDo: Need to redo
+        return board;
+        // var newBoard = new int[board.Length][];
+        // for (int i = 0; i < board.Length; i++)
+        // {
+        //     for (int j = 0; j < board[i].Length; j++)
+        //     {
+        //         var count = CountLiveNeighbors(board, i, j);
+        //         var isAlive = board[i][j] == 1;
+        //         if (isAlive && (count < 2 || count > 3))
+        //         {
+        //             newBoard[i][j] = 0;
+        //         }
+        //         else if (!isAlive && count == 3)
+        //         {
+        //             newBoard[i][j] = 1;
+        //         }
+        //         else
+        //         {
+        //             newBoard[i][j] = 1;
+        //         }
+        //     }
+        // }
+        //
+        // return newBoard;
+    }
+
+    private int CountLiveNeighbors(int[][] nums, int x, int y)
+    {
+        int count = 0;
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == 0 && j == 0)
+                    continue;
+
+                int newX = x + i;
+                int newY = y + i;
+                if (newX >= 0 && newX < nums.Length && newY >= 0 && newY < nums.Length)
+                {
+                    if (nums[newX][newX] == 1)
+                        count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public int[] TwoSum(int[] nums, int target)
+    {
+        var map = new Dictionary<int, int>();
+        map.Add(nums[0], 0);
+        for (int i = 1; i < nums.Length; i++)
+        {
+            var result = target - nums[i];
+            if (map.ContainsKey(result))
+                return new[] { map[result], i };
+            else
+                map.TryAdd(nums[i], i);
+        }
+
+        return [];
+    }
+
+    // 1413. Minimum Value to Get Positive Step by Step Sum
+    // Given an array of integers nums, you start with an initial positive value startValue.
+    // In each iteration, you calculate the step by step sum of startValue plus elements in nums (from left to right).
+    // Return the minimum positive value of startValue such that the step by step sum is never less than 1.
+    // Example 1:
+    // Input: nums = [-3,2,-3,4,2]
+    // Output: 5
+    // Explanation: If you choose startValue = 4, in the third iteration your step by step sum is less than 1.
+    // step by step sum
+    // startValue = 4 | startValue = 5 | nums
+    //   (4 -3 ) = 1  | (5 -3 ) = 2    |  -3
+    //   (1 +2 ) = 3  | (2 +2 ) = 4    |   2
+    //   (3 -3 ) = 0  | (4 -3 ) = 1    |  -3
+    //   (0 +4 ) = 4  | (1 +4 ) = 5    |   4
+    //   (4 +2 ) = 6  | (5 +2 ) = 7    |   2
+    // Example 2:
+    // Input: nums = [1,2]
+    // Output: 1
+    // Explanation: Minimum start value should be positive. 
+    // Example 3:
+    // Input: nums = [1,-2,-3]
+    // Output: 5
+    public int MinStartValue(int[] nums)
+    {
+        var min = 0;
+        var total = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            total += nums[i];
+            min = Math.Min(min, total);
+        }
+
+        return 1 - min;
+    }
+
+    // 2090. K Radius Subarray Averages
+    // You are given a 0-indexed array nums of n integers, and an integer k.
+    //     The k-radius average for a subarray of nums centered at some index i with the radius k is the average of all elements in nums between the indices i - k and i + k (inclusive). If there are less than k elements before or after the index i, then the k-radius average is -1.
+    // Build and return an array avgs of length n where avgs[i] is the k-radius average for the subarray centered at index i.
+    //     The average of x elements is the sum of the x elements divided by x, using integer division. The integer division truncates toward zero, which means losing its fractional part.
+    //     For example, the average of four elements 2, 3, 1, and 5 is (2 + 3 + 1 + 5) / 4 = 11 / 4 = 2.75, which truncates to 2.
+    // Example 1:
+    // Input: nums = [7,4,3,9,1,8,5,2,6], k = 3
+    // Output: [-1,-1,-1,5,4,4,-1,-1,-1]
+    // Explanation:
+    // - avg[0], avg[1], and avg[2] are -1 because there are less than k elements before each index.
+    // - The sum of the subarray centered at index 3 with radius 3 is: 7 + 4 + 3 + 9 + 1 + 8 + 5 = 37.
+    // Using integer division, avg[3] = 37 / 7 = 5.
+    // - For the subarray centered at index 4, avg[4] = (4 + 3 + 9 + 1 + 8 + 5 + 2) / 7 = 4.
+    // - For the subarray centered at index 5, avg[5] = (3 + 9 + 1 + 8 + 5 + 2 + 6) / 7 = 4.
+    // - avg[6], avg[7], and avg[8] are -1 because there are less than k elements after each index.
+    //     Example 2:
+    // Input: nums = [100000], k = 0
+    // Output: [100000]
+    // Explanation:
+    // - The sum of the subarray centered at index 0 with radius 0 is: 100000.
+    // avg[0] = 100000 / 1 = 100000.
+    // Example 3:
+    // Input: nums = [8], k = 100000
+    // Output: [-1]
+    // Explanation: 
+    // - avg[0] is -1 because there are less than k elements before and after index 0.
+    // Constraints:
+    // n == nums.length
+    // 1 <= n <= 105
+    // 0 <= nums[i], k <= 105
+    public int[] GetAverages(int[] nums, int k)
+    {
+        throw new NotImplementedException("");
+    }
+
+    // 1456. Maximum Number of Vowels in a Substring of Given Length
+    //     Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+    //     Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+    // Example 1:
+    // Input: s = "abciiidef", k = 3
+    // Output: 3
+    // Explanation: The substring "iii" contains 3 vowel letters.
+    //     Example 2:
+    // Input: s = "aeiou", k = 2
+    // Output: 2
+    // Explanation: Any substring of length 2 contains 2 vowels.
+    //     Example 3:
+    // Input: s = "leetcode", k = 3
+    // Output: 2
+    // Explanation: "lee", "eet" and "ode" contain 2 vowels.
+    //     Constraints:
+    // 1 <= s.length <= 105
+    // s consists of lowercase English letters.
+    // 1 <= k <= s.length
+    public int MaxVowels(string s, int k)
+    {
+        var vowels = "aeiou";
+        var count = 0;
+        var result = 0;
+
+        for (var i = 0; i < k; i++)
+        {
+            count += vowels.Contains(s[i]) ? 1 : 0;
+        }
+
+        result = Math.Max(result, count);
+        for (var i = k; i < s.Length; i++)
+        {
+            count += vowels.Contains(s[i]) ? 1 : 0;
+            count -= vowels.Contains(s[i - k]) ? 1 : 0;
+            result = Math.Max(result, count);
+        }
+
+        return result;
+    }
+
+    // 122. Best Time to Buy and Sell Stock II
+    //     You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+    //     On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+    //     Find and return the maximum profit you can achieve.
+    //     Example 1:
+    // Input: prices = [7,1,5,3,6,4]
+    // Output: 7
+    // Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+    // Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+    // Total profit is 4 + 3 = 7.
+    // Example 2:
+    // Input: prices = [1,2,3,4,5]
+    // Output: 4
+    // Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+    // Total profit is 4.
+    // Example 3:
+    // Input: prices = [7,6,4,3,1]
+    // Output: 0
+    // Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.
+    public int MaxProfit(int[] prices)
+    {
+        var result = 0;
+        for (int i = 1; i < prices.Length; i++)
+        {
+            if (prices[i - 1] < prices[i])
+            {
+                result += prices[i] - prices[i - 1];
+            }
+        }
+
+        return result;
+    }
+
+    //     68. Text Justification
+    // Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
+    // You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
+    // Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+    // For the last line of text, it should be left-justified, and no extra space is inserted between words.
+    // Note:
+    // A word is defined as a character sequence consisting of non-space characters only.
+    // Each word's length is guaranteed to be greater than 0 and not exceed maxWidth.
+    // The input array words contains at least one word.
+    // Example 1:
+    // Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+    // Output:
+    // [
+    //    "This    is    an",
+    //    "example  of text",
+    //    "justification.  "
+    // ]
+    // Example 2:
+    // Input: words = ["What","must","be","acknowledgment","shall","be"], maxWidth = 16
+    // Output:
+    // [
+    //   "What   must   be",
+    //   "acknowledgment  ",
+    //   "shall be        "
+    // ]
+    // Explanation: Note that the last line is "shall be    " instead of "shall     be", because the last line must be left-justified instead of fully-justified.
+    // Note that the second line is also left-justified because it contains only one word.
+    // Example 3:
+    // Input: words = ["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"], maxWidth = 20
+    // Output:
+    // [
+    //   "Science  is  what we",
+    //   "understand      well",
+    //   "enough to explain to",
+    //   "a  computer.  Art is",
+    //   "everything  else  we",
+    //   "do                  "
+    // ]
+    // Constraints:
+    // 1 <= words.length <= 300
+    // 1 <= words[i].length <= 20
+    // words[i] consists of only English letters and symbols.
+    // 1 <= maxWidth <= 100
+    // words[i].length <= maxWidth
+    public IList<string> FullJustify(string[] words, int maxWidth)
+    {
+        var result = new List<string>();
+        
+        return result;
     }
 }

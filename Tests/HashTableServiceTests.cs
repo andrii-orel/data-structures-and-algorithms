@@ -12,6 +12,20 @@ public class HashTableServiceTests
     }
 
     [Fact]
+    public void IsIsomorphic_Example1_Success()
+    {
+        // Arrange
+        var s = "egg";
+        var t = "add";
+
+        // Act
+        var result = _hashTableService.IsIsomorphic(s, t);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
     public void MajorityElement_Example1_Success()
     {
         // Arrange

@@ -6,26 +6,87 @@ public interface IHashTableService
 {
     int MajorityElement(int[] nums);
     bool CanConstruct(string ransomNote, string magazine);
+    bool IsIsomorphic(string s, string t);
 }
 
 public class HashTableService : IHashTableService
 {
+    // 205. Isomorphic Strings
+    // Given two strings s and t, determine if they are isomorphic.
+    // Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+    // All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+    // Example 1:
+    // Input: s = "egg", t = "add"
+    // Output: true
+    // Explanation:
+    // The strings s and t can be made identical by:
+    // Mapping 'e' to 'a'.
+    // Mapping 'g' to 'd'.
+    // Example 2:
+    // Input: s = "foo", t = "bar"
+    // Output: false
+    // Explanation:
+    // The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+    // Example 3:
+    // Input: s = "paper", t = "title"
+    // Constraints:
+    // 1 <= s.length <= 5 * 104
+    // t.length == s.length
+    // s and t consist of any valid ascii character.
+    public bool IsIsomorphic(string s, string t)
+    {
+        return TransformString(s).Equals(TransformString(t));
+        // int[] mapStoT = new int[256];
+        // int[] mapTtoS = new int[256];
+        //
+        // for(int i=0;i<s.Length;i++) {
+        //     char c1 = s[i];
+        //     char c2 = t[i];
+        //
+        //     if(mapStoT[c1] == 0 && mapTtoS[c2] == 0) {
+        //         mapStoT[c1] = c2;
+        //         mapTtoS[c2] = c1;
+        //     } else if(!(mapStoT[c1] == c2 && mapTtoS[c2] == c1)) {
+        //         return false;
+        //     }
+        // }
+        //
+        // return true;
+    }
+
+    private string TransformString(string s)
+    {
+        const string empty = " ";
+        var indexMapping = new Dictionary<char, int>();
+        var builder = new StringBuilder();
+
+        for (int i = 0; i < s.Length; ++i)
+        {
+            var c = s[i];
+
+            if (!indexMapping.ContainsKey(c))
+            {
+                indexMapping.TryAdd(c, i);
+            }
+
+            builder.Append(indexMapping[c].ToString());
+            builder.Append(empty);
+        }
+
+        return builder.ToString();
+    }
+
     // 169. Majority Element
     // Given an array nums of size n, return the majority element.
-    //
     //     The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
     //     Example 1:
-    //
     // Input: nums = [3,2,3]
     // Output: 3
     // Example 2:
     //
     // Input: nums = [2,2,1,1,1,2,2]
     // Output: 2
-    //
-    //
     // Constraints:
-    //
     // n == nums.length
     // 1 <= n <= 5 * 104
     // -109 <= nums[i] <= 109

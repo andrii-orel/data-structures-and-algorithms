@@ -15,12 +15,12 @@ public class LinkedListServiceTests
     public void MiddleNode_Example1_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(2, null);
-        input.Next.Next = new LeetcodeListNode(3, null);
+        var input = new Node(1, null);
+        input.Next = new Node(2, null);
+        input.Next.Next = new Node(3, null);
         
-        var expected = new LeetcodeListNode(2, null);
-        expected.Next = new LeetcodeListNode(3, null);
+        var expected = new Node(2, null);
+        expected.Next = new Node(3, null);
 
         // Act
         var result = _linkedListService.MiddleNode(input);
@@ -39,16 +39,16 @@ public class LinkedListServiceTests
     public void MiddleNode_Example2_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(2, null);
-        input.Next.Next = new LeetcodeListNode(3, null);
-        input.Next.Next.Next = new LeetcodeListNode(4, null);
-        input.Next.Next.Next.Next = new LeetcodeListNode(5, null);
-        input.Next.Next.Next.Next.Next = new LeetcodeListNode(6, null);
+        var input = new Node(1, null);
+        input.Next = new Node(2, null);
+        input.Next.Next = new Node(3, null);
+        input.Next.Next.Next = new Node(4, null);
+        input.Next.Next.Next.Next = new Node(5, null);
+        input.Next.Next.Next.Next.Next = new Node(6, null);
         
-        var expected = new LeetcodeListNode(4, null);
-        expected.Next = new LeetcodeListNode(5, null);
-        expected.Next.Next = new LeetcodeListNode(6, null);
+        var expected = new Node(4, null);
+        expected.Next = new Node(5, null);
+        expected.Next.Next = new Node(6, null);
 
         // Act
         var result = _linkedListService.MiddleNode(input);
@@ -67,12 +67,12 @@ public class LinkedListServiceTests
     public void DeleteDuplicates_Example1_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(1, null);
-        input.Next.Next = new LeetcodeListNode(2, null);
+        var input = new Node(1, null);
+        input.Next = new Node(1, null);
+        input.Next.Next = new Node(2, null);
         
-        var expected = new LeetcodeListNode(1, null);
-        expected.Next = new LeetcodeListNode(2, null);
+        var expected = new Node(1, null);
+        expected.Next = new Node(2, null);
 
         // Act
         var result = _linkedListService.DeleteDuplicates(input);
@@ -91,15 +91,15 @@ public class LinkedListServiceTests
     public void ReverseList_Example1_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(2, null);
-        input.Next.Next = new LeetcodeListNode(3, null);
-        input.Next.Next.Next = new LeetcodeListNode(4, null);
+        var input = new Node(1, null);
+        input.Next = new Node(2, null);
+        input.Next.Next = new Node(3, null);
+        input.Next.Next.Next = new Node(4, null);
         
-        var expected = new LeetcodeListNode(4, null);
-        expected.Next = new LeetcodeListNode(3, null);
-        expected.Next.Next = new LeetcodeListNode(2, null);
-        expected.Next.Next.Next = new LeetcodeListNode(1, null);
+        var expected = new Node(4, null);
+        expected.Next = new Node(3, null);
+        expected.Next.Next = new Node(2, null);
+        expected.Next.Next.Next = new Node(1, null);
 
         // Act
         var result = _linkedListService.ReverseList(input);
@@ -118,15 +118,15 @@ public class LinkedListServiceTests
     public void SwapPairs_Example1_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(2, null);
-        input.Next.Next = new LeetcodeListNode(3, null);
-        input.Next.Next.Next = new LeetcodeListNode(4, null);
+        var input = new Node(1, null);
+        input.Next = new Node(2, null);
+        input.Next.Next = new Node(3, null);
+        input.Next.Next.Next = new Node(4, null);
         
-        var expected = new LeetcodeListNode(2, null);
-        expected.Next = new LeetcodeListNode(1, null);
-        expected.Next.Next = new LeetcodeListNode(4, null);
-        expected.Next.Next.Next = new LeetcodeListNode(3, null);
+        var expected = new Node(2, null);
+        expected.Next = new Node(1, null);
+        expected.Next.Next = new Node(4, null);
+        expected.Next.Next.Next = new Node(3, null);
 
         // Act
         var result = _linkedListService.SwapPairs(input);
@@ -145,17 +145,17 @@ public class LinkedListServiceTests
     public void ReverseBetween_Example1_Success()
     {
         // Arrange
-        var input = new LeetcodeListNode(1, null);
-        input.Next = new LeetcodeListNode(2, null);
-        input.Next.Next = new LeetcodeListNode(3, null);
-        input.Next.Next.Next = new LeetcodeListNode(4, null);
-        input.Next.Next.Next.Next = new LeetcodeListNode(5, null);
+        var input = new Node(1, null);
+        input.Next = new Node(2, null);
+        input.Next.Next = new Node(3, null);
+        input.Next.Next.Next = new Node(4, null);
+        input.Next.Next.Next.Next = new Node(5, null);
         
-        var expected = new LeetcodeListNode(1, null);
-        expected.Next = new LeetcodeListNode(4, null);
-        expected.Next.Next = new LeetcodeListNode(3, null);
-        expected.Next.Next.Next = new LeetcodeListNode(2, null);
-        expected.Next.Next.Next.Next = new LeetcodeListNode(5, null);
+        var expected = new Node(1, null);
+        expected.Next = new Node(4, null);
+        expected.Next.Next = new Node(3, null);
+        expected.Next.Next.Next = new Node(2, null);
+        expected.Next.Next.Next.Next = new Node(5, null);
 
         // Act
         var result = _linkedListService.ReverseBetween(input, 2, 4);

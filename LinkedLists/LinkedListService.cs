@@ -2,11 +2,11 @@
 
 public interface ILinkedListService
 {
-    LeetcodeListNode MiddleNode(LeetcodeListNode head);
-    LeetcodeListNode DeleteDuplicates(LeetcodeListNode head);
-    LeetcodeListNode ReverseList(LeetcodeListNode head);
-    LeetcodeListNode SwapPairs(LeetcodeListNode head);
-    LeetcodeListNode ReverseBetween(LeetcodeListNode head, int left, int right);
+    Node MiddleNode(Node head);
+    Node DeleteDuplicates(Node head);
+    Node ReverseList(Node head);
+    Node SwapPairs(Node head);
+    Node ReverseBetween(Node head, int left, int right);
 }
 
 public class LinkedListService : ILinkedListService
@@ -25,7 +25,7 @@ public class LinkedListService : ILinkedListService
     //     Constraints:
     // The number of nodes in the list is in the range [1, 100].
     // 1 <= Node.val <= 100
-    public LeetcodeListNode MiddleNode(LeetcodeListNode head)
+    public Node MiddleNode(Node head)
     {
         var slowPointer = head;
         var fastPointer = head;
@@ -50,7 +50,7 @@ public class LinkedListService : ILinkedListService
     // The number of nodes in the list is in the range [0, 300].
     //     -100 <= Node.val <= 100
     // The list is guaranteed to be sorted in ascending order.
-    public LeetcodeListNode DeleteDuplicates(LeetcodeListNode head)
+    public Node DeleteDuplicates(Node head)
     {
         if (head is null)
             return null;
@@ -82,10 +82,10 @@ public class LinkedListService : ILinkedListService
     // Constraints:
     // The number of nodes in the list is the range [0, 5000].
     //     -5000 <= Node.val <= 5000
-    public LeetcodeListNode ReverseList(LeetcodeListNode head)
+    public Node ReverseList(Node head)
     {
-        LeetcodeListNode prev = null;
-        LeetcodeListNode curr = head;
+        Node prev = null;
+        Node curr = head;
         while (curr != null)
         {
             var next = curr.Next;
@@ -117,7 +117,7 @@ public class LinkedListService : ILinkedListService
     // Constraints:
     // The number of nodes in the list is in the range [0, 100].
     //     0 <= Node.val <= 100
-    public LeetcodeListNode SwapPairs(LeetcodeListNode head)
+    public Node SwapPairs(Node head)
     {
         // Check edge case: linked list has 0 or 1 nodes, just return
         if (head == null || head.Next == null)
@@ -125,8 +125,8 @@ public class LinkedListService : ILinkedListService
             return head;
         }
 
-        LeetcodeListNode result = head.Next; // Step 5
-        LeetcodeListNode prev = null; // Initialize for step 3
+        Node result = head.Next; // Step 5
+        Node prev = null; // Initialize for step 3
         while (head != null && head.Next != null)
         {
             if (prev != null)
@@ -157,16 +157,16 @@ public class LinkedListService : ILinkedListService
     // 1 <= n <= 500
     // -500 <= Node.val <= 500
     // 1 <= left <= right <= n
-    public LeetcodeListNode ReverseBetween(LeetcodeListNode head, int left, int right)
+    public Node ReverseBetween(Node head, int left, int right)
     {
-        var temp = new LeetcodeListNode(0, head);
+        var temp = new Node(0, head);
         var before = temp;
 
         for (var i = 1; i < left; i++)
         {
             before = before.Next;
         }
-        
+
         var prev = before;
         var curr = before.Next;
 
@@ -180,7 +180,70 @@ public class LinkedListService : ILinkedListService
 
         before.Next.Next = curr;
         before.Next = prev;
-        
+
         return temp.Next;
+    }
+
+    // 2. Add Two Numbers
+    // You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+    //     You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+    //     Example 1:
+    // Input: l1 = [2,4,3], l2 = [5,6,4]
+    // Output: [7,0,8]
+    // Explanation: 342 + 465 = 807.
+    // Example 2:
+    // Input: l1 = [0], l2 = [0]
+    // Output: [0]
+    // Example 3:
+    // Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+    // Output: [8,9,9,9,0,0,0,1]
+    // Constraints:
+    // The number of nodes in each linked list is in the range [1, 100].
+    //     0 <= Node.val <= 9
+    // It is guaranteed that the list represents a number that does not have leading zeros.
+    public Node AddTwoNumbers(Node l1, Node l2)
+    {
+        var dummyHead = new Node(0);
+        var curr = dummyHead;
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0)
+        {
+            int x = l1 != null ? l1.Val : 0;
+            int y = l2 != null ? l2.Val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.Next = new Node(sum % 10);
+            curr = curr.Next;
+            if (l1 != null)
+                l1 = l1.Next;
+            if (l2 != null)
+                l2 = l2.Next;
+        }
+
+        return dummyHead.Next;
+    }
+
+    public int[][] Merge(int[][] intervals)
+    {
+        Array.Sort(intervals, (a, b) => a[0] - b[0]);
+        LinkedList<int[]> merged = new LinkedList<int[]>();
+        foreach (int[] interval in intervals)
+        {
+            // if the list of merged intervals is empty or if the current
+            // interval does not overlap with the previous, append it
+            if (merged.Count == 0 || merged.Last.Value[1] < interval[0])
+            {
+                merged.AddLast(interval);
+            }
+            // otherwise, there is overlap, so we merge the current and previous
+            // intervals
+            else
+            {
+                merged.Last.Value[1] =
+                    Math.Max(merged.Last.Value[1], interval[1]);
+            }
+        }
+
+        return merged.ToArray();
     }
 }
