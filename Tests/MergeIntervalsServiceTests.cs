@@ -12,7 +12,7 @@ public class MergeIntervalsServiceTests
     }
     
     [Fact]
-    public void WaysToSplitArray_Example1_Success()
+    public void SaveDrop_Example1_Success()
     {
         // Arrange
         var input = new PaintDrop { Start = 0, End = 1 };

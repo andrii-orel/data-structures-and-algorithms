@@ -11,6 +11,10 @@ public interface IMergeIntervalsService
     bool SaveDrop(PaintDrop paintDrop);
 }
 
+// This was a coding interview question for Senior .NET position
+// Need to implement SaveDrop method
+// Idea was taken from Leetcode #56.
+// Please see IntervalsService.
 public class MergeIntervalsService : IMergeIntervalsService
 {
     // [42.222______________________________72.2324]
@@ -44,9 +48,9 @@ public class MergeIntervalsService : IMergeIntervalsService
         };
         for (var i = 1; i < intervals.Length; i++)
         {
-            var currentStart = intervals[i][0];
-            var currentEnd = intervals[i][1];
-            var mergedLastEnd = merged.Last()[1];
+            // var currentStart = intervals[i][0];
+            // var currentEnd = intervals[i][1];
+            // var mergedLastEnd = merged.Last()[1];
             if (intervals[i][0] <= merged.Last()[1])
             {
                 merged.Last()[1] = Math.Max(merged.Last()[1], intervals[i][1]);
