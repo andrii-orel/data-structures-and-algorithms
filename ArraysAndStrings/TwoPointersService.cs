@@ -44,7 +44,7 @@ public class TwoPointersService : ITwoPointersService
             var complement = target - nums[i];
             if (map.TryGetValue(complement, out var value))
             {
-                return new[] { value, i };
+                return [value, i];
             }
 
             map[nums[i]] = i;

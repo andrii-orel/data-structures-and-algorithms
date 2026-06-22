@@ -13,11 +13,44 @@ public interface ILinkedListService
     ListNode RotateRight(ListNode head, int k);
     ListNode DeleteDuplicates2(ListNode head);
     ListNode Partition(ListNode head, int x);
+    ListNode RemoveKthNodeFromEnd(ListNode head, int k);
 }
 
 public class LinkedListService : ILinkedListService
 {
-    
+    // One-Pass Removal of k-th Node from End
+    // https://www.hackerrank.com/contests/software-engineer-prep-kit/challenges/one-pass-removal-kth-from-end/problem?isFullScreen=true
+    public ListNode RemoveKthNodeFromEnd(ListNode head, int k)
+    {
+        // 1. Защита от невалидного k
+        if (k <= 0) return head;
+
+        // 2. Фиктивный узел — упрощает удаление head
+        var dummy = new ListNode(0);
+        dummy.Next = head;
+
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+
+        // 3. Сдвигаем fast на k+1 шагов
+        for (int i = 0; i <= k; i++)
+        {
+            if (fast == null) return head; // k > длина списка
+            fast = fast.Next;
+        }
+
+        // 4. Двигаем оба до fast == null
+        while (fast != null)
+        {
+            fast = fast.Next;
+            slow = slow.Next;
+        }
+
+        // 5. slow стоит перед удаляемым узлом
+        slow.Next = slow.Next.Next;
+
+        return dummy.Next;
+    }
 
     // 86. Partition List
     // Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.

@@ -10,13 +10,14 @@ public class ArraysAndStringsServiceTests
     {
         _arraysAndStringsService = new ArraysAndStringsService();
     }
-[Fact]
+
+    [Fact]
     public void GetAverages_Example1_Success()
     {
         // Arrange
-        var input = new[] { 7,4,3,9,1,8,5,2,6 };
+        var input = new[] { 7, 4, 3, 9, 1, 8, 5, 2, 6 };
         var k = 3;
-        var expected = new[] { -1,-1,-1,5,4,4,-1,-1,-1 };
+        var expected = new[] { -1, -1, -1, 5, 4, 4, -1, -1, -1 };
 
         // Act
         var result = _arraysAndStringsService.GetAverages(input, k);

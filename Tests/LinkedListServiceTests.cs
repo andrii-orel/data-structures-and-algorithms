@@ -12,6 +12,33 @@ public class LinkedListServiceTests
     }
 
     [Fact]
+    public void RemoveKthNodeFromEnd_Example1_Success()
+    {
+        // Arrange
+        var k = 3;
+        var input = new ListNode(5, null); //[5,6,7,8]
+        input.Next = new ListNode(6, null);
+        input.Next.Next = new ListNode(7, null);
+        input.Next.Next.Next = new ListNode(8, null);
+
+        var expected = new ListNode(6, null); //[6,7,8]
+        expected.Next = new ListNode(7, null);
+        expected.Next.Next = new ListNode(8, null);
+
+        // Act
+        var result = _linkedListService.RemoveKthNodeFromEnd(input, k);
+
+        // Assert
+        Assert.NotNull(result);
+        while (result != null)
+        {
+            Assert.Equal(expected: expected.Val, actual: result.Val);
+            result = result.Next;
+            expected = expected.Next;
+        }
+    }
+    
+    [Fact]
     public void Partition_Example1_Success()
     {
         // Arrange
