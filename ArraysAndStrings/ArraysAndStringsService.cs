@@ -1,4 +1,6 @@
-﻿namespace ArraysAndStrings;
+﻿using System.Text;
+
+namespace ArraysAndStrings;
 
 // https://www.youtube.com/watch?v=DjYZk8nrXVY&t=70s
 public interface IArraysAndStringsService
@@ -25,10 +27,107 @@ public interface IArraysAndStringsService
     int[] GetAverages(int[] nums, int k);
     int MaxVowels(string s, int k);
     int MaxProfit(int[] prices);
+    string MergeAlternately(string word1, string word2);
+    string GcdOfStrings(string str1, string str2);
 }
 
 public class ArraysAndStringsService : IArraysAndStringsService
 {
+    // 1071. Greatest Common Divisor of Strings
+    // For two strings s and t, we say "t divides s" if and only if s = t + t + t + ... + t + t (i.e., t is concatenated with itself one or more times).
+    // Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+    // Example 1:
+    // Input: str1 = "ABCABC", str2 = "ABC"
+    // Output: "ABC"
+    // Example 2:
+    // Input: str1 = "ABABAB", str2 = "ABAB"
+    // Output: "AB"
+    // Example 3:
+    // Input: str1 = "LEET", str2 = "CODE"
+    // Output: ""
+    // Constraints:
+    // 1 <= str1.length, str2.length <= 1000
+    // str1 and str2 consist of English uppercase letters.
+    public string GcdOfStrings(string str1, string str2)
+    {
+        // Check if they have non-zero GCD string.
+        if (!(str1 + str2).Equals(str2 + str1))
+        {
+            return string.Empty;
+        }
+
+        // Get the GCD of the two lengths.
+        var gcdLength = Gcd(str1.Length, str2.Length);
+        
+        return str1.Substring(0, gcdLength);
+    }
+
+    private int Gcd(int x, int y)
+    {
+        while (true)
+        {
+            if (y == 0) 
+                return x;
+            
+            var x1 = x;
+            x = y;
+            y = x1 % y;
+        }
+    }
+
+    // 1768. Merge Strings Alternately
+    // You are given two strings word1 and word2. Merge the strings by adding letters in alternating order, starting with word1. If a string is longer than the other, append the additional letters onto the end of the merged string.
+    // Return the merged string.
+    // Example 1:
+    // Input: word1 = "abc", word2 = "pqr"
+    // Output: "apbqcr"
+    // Explanation: The merged string will be merged as so:
+    // word1:  a   b   c
+    // word2:    p   q   r
+    // merged: a p b q c r
+    // Example 2:
+    // Input: word1 = "ab", word2 = "pqrs"
+    // Output: "apbqrs"
+    // Explanation: Notice that as word2 is longer, "rs" is appended to the end.
+    // word1:  a   b 
+    // word2:    p   q   r   s
+    // merged: a p b q   r   s
+    // Example 3:
+    // Input: word1 = "abcd", word2 = "pq"
+    // Output: "apbqcd"
+    // Explanation: Notice that as word1 is longer, "cd" is appended to the end.
+    // word1:  a   b   c   d
+    // word2:    p   q 
+    // merged: a p b q c   d
+    // Constraints:
+    // 1 <= word1.length, word2.length <= 100
+    // word1 and word2 consist of lowercase English letters.
+    public string MergeAlternately(string word1, string word2)
+    {
+        var len1 = word1.Length;
+        var len2 = word2.Length;
+        var p1 = 0;
+        var p2 = 0;
+
+        var result = new StringBuilder();
+        while (p1 < len1 || p2 < len2)
+        {
+            if (p1 < len1)
+            {
+                result.Append(word1[p1]);
+                p1++;
+            }
+
+            if (p2 >= len2)
+                continue;
+
+            result.Append(word2[p2]);
+            p2++;
+        }
+
+        return result.ToString();
+    }
+
     // 14. Longest Common Prefix
     // Write a function to find the longest common prefix string amongst an array of strings.
     //
@@ -526,30 +625,21 @@ public class ArraysAndStringsService : IArraysAndStringsService
 
     // 151. Reverse Words in a String
     // Given an input string s, reverse the order of the words.
-    //
     //     A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
-    //
     //     Return a string of the words in reverse order concatenated by a single space.
-    //
     //     Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
     //     Example 1:
-    //
     // Input: s = "the sky is blue"
     // Output: "blue is sky the"
     // Example 2:
-    //
     // Input: s = "  hello world  "
     // Output: "world hello"
     // Explanation: Your reversed string should not contain leading or trailing spaces.
     //     Example 3:
-    //
     // Input: s = "a good   example"
     // Output: "example good a"
     // Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
-    //
-    //
     // Constraints:
-    //
     // 1 <= s.length <= 104
     // s contains English letters (upper-case and lower-case), digits, and spaces ' '.
     // There is at least one word in s.
@@ -945,7 +1035,7 @@ public class ArraysAndStringsService : IArraysAndStringsService
     public IList<string> FullJustify(string[] words, int maxWidth)
     {
         var result = new List<string>();
-        
+
         return result;
     }
 }

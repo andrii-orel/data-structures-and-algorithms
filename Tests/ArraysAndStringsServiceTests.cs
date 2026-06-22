@@ -10,13 +10,32 @@ public class ArraysAndStringsServiceTests
     {
         _arraysAndStringsService = new ArraysAndStringsService();
     }
-[Fact]
+
+    [Fact]
+    public void MergeAlternately_Example1_Success()
+    {
+        // List<int> ls = new List<int>() { 1, 1, 2, 3, 4 };
+        // var record = ls.First(x => x == 1);
+        // var record2 = ls.Single(x => x == 1);
+        // Arrange
+        var word1 = "abc";
+        var word2 = "pqr";
+        var expected = "apbqcr";
+
+        // Act
+        var result = _arraysAndStringsService.MergeAlternately(word1, word2);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
     public void GetAverages_Example1_Success()
     {
         // Arrange
-        var input = new[] { 7,4,3,9,1,8,5,2,6 };
+        var input = new[] { 7, 4, 3, 9, 1, 8, 5, 2, 6 };
         var k = 3;
-        var expected = new[] { -1,-1,-1,5,4,4,-1,-1,-1 };
+        var expected = new[] { -1, -1, -1, 5, 4, 4, -1, -1, -1 };
 
         // Act
         var result = _arraysAndStringsService.GetAverages(input, k);
