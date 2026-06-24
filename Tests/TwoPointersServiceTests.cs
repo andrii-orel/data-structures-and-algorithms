@@ -4,14 +4,9 @@ namespace Tests;
 
 public class TwoPointersServiceTests
 {
-    private readonly ITwoPointersService _twoPointersService;
+    private readonly ITwoPointersService _twoPointersService = new TwoPointersService();
 
-    public TwoPointersServiceTests()
-    {
-        _twoPointersService = new TwoPointersService();
-    }
 
-    
     [Fact]
     public void IsPalindrome_Example1_Success()
     {

@@ -4,11 +4,20 @@ namespace Tests;
 
 public class MatrixServiceTests
 {
-    private readonly IMatrixService _matrixService;
+    private readonly IMatrixService _matrixService = new MatrixService();
 
-    public MatrixServiceTests()
+    [Fact]
+    public void OrangesRotting_Example1_Success()
     {
-        _matrixService = new MatrixService();
+        // Arrange
+        var input = new int[][]{[2,1,1],[1,1,0],[0,1,1]};//[[2,1,1],[1,1,0],[0,1,1]]
+        var expected = 4;
+
+        // Act
+        var result = _matrixService.OrangesRotting(input);
+
+        // Assert
+        Assert.Equal(expected, result);
     }
     
     [Fact]
